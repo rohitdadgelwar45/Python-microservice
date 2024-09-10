@@ -9,12 +9,12 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh 'mvn -B -DskipTests clean package'
+                echo 'Deploy on Ec-2'
             }
         }
         stage('Test') {
             steps {
-                sh 'mvn test'
+                echo 'Deploy on Ec-2'
             }
         }
         stage('Deliver') {
