@@ -1,23 +1,28 @@
-# wishlist-microservice-python
-Wishlist Microservice is a Python and Flask app with Wishlist data.
+pipeline {
+    agent any
 
-
-## Build Instruction
-```
-pip install flask
-python index.py
-
-```
-*App runs on port **1003***
-
-
-> Access the app from endpoint:
-
-```
-API endpoint:  http://localhost:1003/
-Method: GET
-Response:
-{"1": "Apple Iphone", "2": "MacBook", "3": "Your Fav Something else"}
-```
-
-##
+    stages {
+        stage('Prepare Environment') {
+            steps {
+                // Install Python and pip (if not already available)
+                sh 'python3 --version || sudo apt-get install python3'
+                sh 'pip3 --version || sudo apt-get install python3-pip'
+            }
+        }
+        stage('Create Virtual Environment') {
+            steps {
+                // Create a virtual environment (optional but recommended)
+                sh 'python3 -m venv venv'
+            }
+        }
+        stage('Install Flask') {
+            steps {
+                // Activate virtual environment and install Flask
+                sh '''
+                    source venv/bin/activate
+                    pip install flask
+                '''
+            }
+        }
+    }
+}
