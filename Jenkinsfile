@@ -1,25 +1,24 @@
 pipeline {
     agent any
 
-    tools{
-        maven "maven"
-    }
-
     stages {
-
-        stage('Build') {
+        stage('Prepare Environment') {
             steps {
-                echo 'Deploy on Ec-2'
+                sh 'python3 --version || sudo apt-get install python3'
+                sh 'pip3 --version || sudo apt-get install python3-pip'
             }
         }
-        stage('Test') {
+        stage('Create Virtual Environment') {
             steps {
-                echo 'Deploy on Ec-2'
+                sh 'python3 -m venv venv'
             }
         }
-        stage('Deliver') {
+        stage('Install Flask') {
             steps {
-                echo 'Deploy on Ec-2'
+                sh '''
+                    source venv/bin/activate
+                    pip install flask
+                '''
             }
         }
     }
