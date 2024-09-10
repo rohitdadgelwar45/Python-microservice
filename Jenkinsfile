@@ -4,6 +4,7 @@ pipeline {
     stages {
         stage('Prepare Environment') {
             steps {
+                sh 'sudo apt update'
                 sh 'python3 --version || sudo apt-get install python3'
                 sh 'pip3 --version || sudo apt-get install python3-pip'
             }
